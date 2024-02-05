@@ -21,14 +21,15 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from 'yup';
 import {useAuth} from "../../hooks/useAuth";
 import {ROUTES} from "../../routes";
-import {LoadingSpinner} from "../../components/Spinner";
 import {LoginData} from "../../types/FormTypes";
+import Spinner from "../../components/Spinner";
 
 const schema = yup.object({
     email: yup.string().email('Email inválido.').required('Campo obrigatório.'),
     password: yup.string().min(3, 'No mínimo 3 carácteres').required('Campo obrigatório.')
 }).required();
-export default function Login() {
+
+const Login = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -69,7 +70,7 @@ export default function Login() {
                                rightIcon={<MdRemoveRedEye/>} onRightIconClick={togglePasswordVisibility}/>
                         <Button disabled={isLoading} title="Entrar" $variant="SECONDARY" type="submit"/>
                     </form>
-                    {isLoading && <LoadingSpinner/>}
+                    {isLoading && <Spinner/>}
                     <Row>
                         <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
                         <CreateAccountText onClick={() => navigate(ROUTES.REGISTER)}>Criar Conta</CreateAccountText>
@@ -79,3 +80,5 @@ export default function Login() {
         </Container>
     )
 }
+
+export default Login;

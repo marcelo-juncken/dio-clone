@@ -20,7 +20,7 @@ import * as yup from "yup";
 import {RegisterData} from "../../types/FormTypes";
 import {useAuth} from "../../hooks/useAuth";
 import {ROUTES} from "../../routes";
-import {LoadingSpinner} from "../../components/Spinner";
+import Spinner from "../../components/Spinner";
 
 const schema = yup.object({
     name: yup.string().min(3, 'No mínimo 3 carácteres').required('Campo obrigatório.'),
@@ -28,7 +28,7 @@ const schema = yup.object({
     password: yup.string().min(3, 'No mínimo 3 carácteres').required('Campo obrigatório.'),
 }).required()
 
-export const Register = () => {
+const Register = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const {handleRegister} = useAuth();
@@ -72,7 +72,7 @@ export const Register = () => {
                         <Button disabled={isLoading} title={"Criar minha conta"} $variant={"SECONDARY"}
                                 type={"submit"}/>
                     </form>
-                    {isLoading && <LoadingSpinner/>}
+                    {isLoading && <Spinner/>}
                     <PrivacyDeclaration>Ao clicar em "criar minha conta grátis", declaro que aceito as Políticas de
                         Privacidade e os Termos de Uso da DIO.</PrivacyDeclaration>
                     <AlreadyHaveAccountText>Já tenho conta. <LoginText onClick={() => navigate(ROUTES.LOGIN)}>Fazer
@@ -82,3 +82,5 @@ export const Register = () => {
         </Container>
     );
 };
+
+export default Register;

@@ -1,6 +1,8 @@
 import React from "react";
-import {Spinner} from "./styles";
+import {SpinnerContainer} from "./styles";
 
-export const LoadingSpinner = () => (
-    <Spinner />
+const Spinner = () => (
+    <SpinnerContainer />
 );
+
+export default Spinner;

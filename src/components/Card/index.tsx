@@ -4,7 +4,7 @@ import React from 'react'
 import {CardContainer, Content, HasInfo, ImageBackground, PostInfo, UserInfo,} from './styles'
 import {Avatar} from "../Avatar";
 
-const Card = () => {
+const Card = React.memo(() => {
     return (
         <CardContainer>
             <ImageBackground
@@ -31,6 +31,6 @@ const Card = () => {
             </Content>
         </CardContainer>
     )
-}
+});
 
 export {Card}
