@@ -28,7 +28,7 @@ Com as dependências instaladas, você pode iniciar a aplicação localmente. Ai
 npm start
 
 # Iniciar o backend
-json-server --watch db.json --port 3001
+npm run api
 ```
 
 ## Funcionalidades
