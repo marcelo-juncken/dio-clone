@@ -3,23 +3,18 @@ import logo from '../../assets/logo-dio.png';
 import {useNavigate} from "react-router-dom";
 import {Button} from '../Button';
 
-import {Container, Logout, Menu, MenuRight, Row, SearchInputContainer, Wrapper} from './styles';
+import {Container, Logout, Menu, MenuRight, Row, SearchInputContainer, UserName, Wrapper} from './styles';
 import {Avatar} from "../Avatar";
 import {ROUTES} from "../../routes";
 import {useAuth} from "../../hooks/useAuth";
 
 export const Header = () => {
 
-    const auth = useAuth();
+    const {user, handleLogout} = useAuth();
     const navigate = useNavigate();
 
-    const handleLogOut = () => {
-        auth.logout();
-        navigate(ROUTES.HOME);
-    }
-
     const handleLogoClick = () => {
-        if (auth.isAuthenticated) {
+        if (user) {
             navigate(ROUTES.FEED)
         } else {
             navigate(ROUTES.HOME)
@@ -31,21 +26,22 @@ export const Header = () => {
             <Container>
                 <Row>
                     <img onClick={handleLogoClick} src={logo} alt="Logo da dio"/>
-                    {auth.isAuthenticated &&
-                        <>
+                    {user ?
+                        (<>
                             <SearchInputContainer>
                                 <input placeholder='Buscar...'/>
                             </SearchInputContainer>
                             <Menu>Live Code</Menu>
                             <Menu>Global</Menu>
-                        </>
+                        </>) : null
                     }
                 </Row>
                 <Row>
-                    {auth.isAuthenticated ? (
+                    {user ? (
                         <>
-                            <Logout onClick={handleLogOut}>Logout</Logout>
+                            <UserName>{user.name}</UserName>
                             <Avatar/>
+                            <Logout onClick={handleLogout}>Sair</Logout>
                         </>
 
                     ) : (

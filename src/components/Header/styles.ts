@@ -51,12 +51,15 @@ export const SearchInputContainer = styled.div`
 export const Logout = styled.span`
     color: #ff5555;
     cursor: pointer;
-    margin-right: 16px;
+    margin-left: 16px;
     font-family: 'Open Sans',serif;
     
     &:hover {
         text-decoration: underline;
     }
+`
+export const UserName = styled.span`
+    margin-right: 8px;
 `
 export const Menu = styled.a`
     font-family: 'Open Sans',serif;

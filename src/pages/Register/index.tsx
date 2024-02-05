@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
     AlreadyHaveAccountText,
     Column,
@@ -16,9 +16,8 @@ import {Button} from "../../components/Button";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useNavigate} from "react-router-dom";
-import {createUser, fetchUsers} from "../../services/api";
 import * as yup from "yup";
-import {IRegisterFormInput} from "../../types/FormTypes";
+import {IRegisterData} from "../../types/FormTypes";
 import {useAuth} from "../../hooks/useAuth";
 import {ROUTES} from "../../routes";
 import {LoadingSpinner} from "../../components/Spinner";
@@ -32,45 +31,20 @@ const schema = yup.object({
 export const Register = () => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const {login, isAuthenticated} = useAuth();
+    const {handleRegister} = useAuth();
     const navigate = useNavigate();
 
     const [inputType, setInputType] = useState("password");
 
-    const {control, handleSubmit, formState: {errors}} = useForm<IRegisterFormInput>({
+    const {control, handleSubmit, formState: {errors}} = useForm<IRegisterData>({
         resolver: yupResolver(schema)
     });
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate(ROUTES.FEED);
-        }
-    })
-
-
-    const onSubmit = async (formData: IRegisterFormInput) => {
-        try {
-            setIsLoading(true);
-            const response = await fetchUsers(formData);
-            const usersWithEmail = response.data;
-
-            if (usersWithEmail.length > 0) {
-                alert('E-mail já cadastrado!');
-                setIsLoading(false);
-                return;
-            }
-
-            await createUser(formData);
-
-            login();
-            navigate(ROUTES.FEED);
-        } catch (e: any) {
-            console.error("Erro ao criar usuário: ", e);
-            setIsLoading(false);
-            alert("Error: " + e.message);
-        }
+    const onSubmit = async (formData: IRegisterData) => {
+        setIsLoading(true);
+        await handleRegister(formData);
+        setIsLoading(false);
     };
-
 
     const togglePasswordVisibility = useCallback(() => {
         setInputType(prevType => prevType === 'password' ? 'text' : 'password');
