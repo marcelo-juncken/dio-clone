@@ -8,6 +8,9 @@ const theme = {
             primary: '#454545',
             secondary: '#D3094F',
         },
+        disabled: {
+            secondary: '#863354',
+        }
     },
     fonts: {
         body: "'Open Sans', sans-serif",
