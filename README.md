@@ -1,46 +1,63 @@
-# Getting Started with Create React App
+# Website Frontend da DIO
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto representa o frontend do website da Digital Innovation One (DIO), desenvolvido com o intuito de criar uma interface rica e interativa para os usuários. O site permite a navegação entre diferentes páginas, como Home, Login, Registro e Feed, utilizando conceitos de autenticação e gerenciamento de estado para uma experiência de usuário segura e personalizada.
 
-## Available Scripts
+## Índice
+- [Instalação](#instalação)
+- [Como Utilizar](#como-utilizar)
+- [Funcionalidades](#funcionalidades)
+- [Contribuição](#contribuição)
+- [Licença](#licença)
 
-In the project directory, you can run:
+## Instalação
 
-### `npm start`
+Para instalar e executar este projeto, você precisará ter o Node.js instalado em sua máquina. Depois de confirmar a instalação do Node.js, siga estas etapas no diretório do projeto:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+# Instalar dependências do projeto
+npm install
+# Para simular o backend, instale o json-server
+npm install json-server --save-dev
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Como Utilizar
+Com as dependências instaladas, você pode iniciar a aplicação localmente. Ainda na pasta raiz do projeto, execute os seguintes comandos:
 
-### `npm test`
+```bash
+# Iniciar a aplicação com npm
+npm start
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Iniciar o backend
+json-server --watch db.json --port 3001
+```
 
-### `npm run build`
+## Funcionalidades
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Navegação entre páginas:** Utiliza `react-router-dom` para a navegação entre as páginas do site.
+- **Autenticação de Usuários:** Permite que os usuários façam login e logout, utilizando contexto para gerenciar o estado de autenticação.
+- **Registro de Usuários:** Oferece uma página para novos usuários se registrarem.
+- **Feed Personalizado:** Após o login, os usuários podem acessar um feed personalizado.
+- **Validação de Formulários:** Utiliza `react-hook-form` e Yup para validar os formulários de login e registro.
+- **Estilos Personalizados:** Implementa `styled-components` para estilização, permitindo temas customizados e estilos dinâmicos.
+- **Ícones:** Usa `react-icons` para adicionar ícones estilizados às interfaces do usuário.
+- **Chamadas API:** Utiliza `axios` para fazer chamadas API, simulando interações do backend com `json-server`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Tecnologias Utilizadas
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- React
+- TypeScript
+- Styled Components
+- React Hook Form
+- React Router Dom
+- Axios
+- JSON Server
+- React Icons
 
-### `npm run eject`
+## Contribuição
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Contribuições para o aprimoramento deste projeto são bem-vindas. Se você tem uma sugestão para melhorá-lo, sinta-se à vontade para fazer um fork do repositório e criar um pull request, ou abrir uma issue com a tag "melhoria".
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Licença
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE.txt](LICENSE.txt) para mais detalhes.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
