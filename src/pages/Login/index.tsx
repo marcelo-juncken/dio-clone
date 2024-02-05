@@ -15,15 +15,14 @@ import {
     TitleLogin,
     Wrapper
 } from './styles';
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {fetchUsers} from "../../services/api";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from 'yup';
 import {useAuth} from "../../hooks/useAuth";
 import {ROUTES} from "../../routes";
-import {ILoginFormInput} from "../../types/FormTypes";
 import {LoadingSpinner} from "../../components/Spinner";
+import {ILoginData} from "../../types/FormTypes";
 
 const schema = yup.object({
     email: yup.string().email('Email inválido.').required('Campo obrigatório.'),
@@ -33,39 +32,19 @@ export default function Login() {
 
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const {login, isAuthenticated} = useAuth();
+    const {handleLogin} = useAuth();
 
-    const {control, handleSubmit, formState: {errors}} = useForm<ILoginFormInput>({
+    const {control, handleSubmit, formState: {errors}} = useForm<ILoginData>({
         resolver: yupResolver(schema),
     });
 
     const [inputType, setInputType] = useState("password");
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate(ROUTES.FEED);
-        }
-    })
-
-    const onSubmit = async (formData: ILoginFormInput) => {
-        try {
-            setIsLoading(true);
-            const response = await fetchUsers(formData);
-
-            if (response.data.length) {
-                login();
-                navigate(ROUTES.FEED);
-            } else {
-                alert('Usuário ou senha inválido')
-                setIsLoading(false);
-            }
-
-        } catch (e: any) {
-            alert("Error: " + e.message);
-            setIsLoading(false);
-        }
-    };
-
+    const onSubmit = async (formData: ILoginData) => {
+        setIsLoading(true);
+        await handleLogin(formData)
+        setIsLoading(false);
+    }
 
     const togglePasswordVisibility = useCallback(() => {
         setInputType(prevType => prevType === 'password' ? 'text' : 'password');

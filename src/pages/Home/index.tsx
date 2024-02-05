@@ -2,20 +2,11 @@ import bannerImage from '../../assets/banner.png'
 import {Container, TextContent, Title, TitleHighlight} from './styles';
 import {Button} from "../../components/Button";
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
-import {useAuth} from "../../hooks/useAuth";
 import {ROUTES} from "../../routes";
 
 export const Home = () => {
 
-    const {isAuthenticated} = useAuth();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate(ROUTES.FEED);
-        }
-    })
 
     return (
         <Container>
