@@ -1,11 +1,11 @@
 import React from 'react'
 
 import {ErrorText, InputContainer, InputText, LeftIconContainer, RightIconContainer} from './styles';
-import {InputProps} from "../../types/components/Input";
+import {IInput} from "./types";
 import {useController} from 'react-hook-form';
 
 
-export const Input = ({name, control, leftIcon, rightIcon, errorMessage, onRightIconClick, ...rest}: InputProps) => {
+export const Input = ({name, control, leftIcon, rightIcon, errorMessage, onRightIconClick, ...rest}: IInput) => {
 
     const {field} = useController({name, control});
 

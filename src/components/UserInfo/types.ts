@@ -1,4 +1,4 @@
-export interface UserInfoProps {
+export interface IUserInfo {
     name: string;
     percentual: number;
 }

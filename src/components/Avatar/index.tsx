@@ -1,9 +1,9 @@
 import React from 'react'
 
 import {AvatarContainer} from './styles';
-import {AvatarProps} from "../../types/components/Avatar";
+import {IAvatar} from "./types";
 
-export const Avatar = ({urlAvatar = "https://avatars.githubusercontent.com/u/24771425?v=4"}: AvatarProps) => {
+export const Avatar = ({urlAvatar = "https://avatars.githubusercontent.com/u/24771425?v=4"}: IAvatar) => {
     return (<AvatarContainer src={urlAvatar}/>)
 }
 
