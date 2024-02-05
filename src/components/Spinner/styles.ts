@@ -9,7 +9,7 @@ const rotate = keyframes`
     }
 `;
 
-export const Spinner = styled.div`
+export const SpinnerContainer = styled.div`
     border: 4px solid rgba(0, 0, 0, 0.1);
     border-left-color: ${({ theme }) => theme.colors.secondary};
     border-radius: 50%;

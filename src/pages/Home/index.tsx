@@ -4,7 +4,7 @@ import {Button} from "../../components/Button";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../routes";
 
-export const Home = () => {
+const Home = () => {
 
     const navigate = useNavigate();
 
@@ -28,3 +28,5 @@ export const Home = () => {
 
     );
 }
+
+export default Home;
