@@ -1,10 +1,10 @@
-export interface IRegisterData {
+export interface RegisterData {
     name: string;
     email: string;
     password: string;
 }
 
-export interface ILoginData {
+export interface LoginData {
     email: string;
     password: string;
 }

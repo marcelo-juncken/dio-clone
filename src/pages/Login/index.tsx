@@ -22,7 +22,7 @@ import * as yup from 'yup';
 import {useAuth} from "../../hooks/useAuth";
 import {ROUTES} from "../../routes";
 import {LoadingSpinner} from "../../components/Spinner";
-import {ILoginData} from "../../types/FormTypes";
+import {LoginData} from "../../types/FormTypes";
 
 const schema = yup.object({
     email: yup.string().email('Email inválido.').required('Campo obrigatório.'),
@@ -34,13 +34,13 @@ export default function Login() {
     const navigate = useNavigate();
     const {handleLogin} = useAuth();
 
-    const {control, handleSubmit, formState: {errors}} = useForm<ILoginData>({
+    const {control, handleSubmit, formState: {errors}} = useForm<LoginData>({
         resolver: yupResolver(schema),
     });
 
     const [inputType, setInputType] = useState("password");
 
-    const onSubmit = async (formData: ILoginData) => {
+    const onSubmit = async (formData: LoginData) => {
         setIsLoading(true);
         await handleLogin(formData)
         setIsLoading(false);

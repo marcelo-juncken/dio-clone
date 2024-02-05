@@ -17,7 +17,7 @@ import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useNavigate} from "react-router-dom";
 import * as yup from "yup";
-import {IRegisterData} from "../../types/FormTypes";
+import {RegisterData} from "../../types/FormTypes";
 import {useAuth} from "../../hooks/useAuth";
 import {ROUTES} from "../../routes";
 import {LoadingSpinner} from "../../components/Spinner";
@@ -36,11 +36,11 @@ export const Register = () => {
 
     const [inputType, setInputType] = useState("password");
 
-    const {control, handleSubmit, formState: {errors}} = useForm<IRegisterData>({
+    const {control, handleSubmit, formState: {errors}} = useForm<RegisterData>({
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = async (formData: IRegisterData) => {
+    const onSubmit = async (formData: RegisterData) => {
         setIsLoading(true);
         await handleRegister(formData);
         setIsLoading(false);

@@ -1,16 +1,16 @@
 import React, {createContext, useEffect, useState} from 'react';
 import {IAuthContext, IAuthContextProvider} from "../types/AuthContext";
-import {IUser} from "../types/User";
+import {User} from "../types/User";
 import {createUser, fetchUsers} from "../services/api";
 import {ROUTES} from "../routes";
 import {useLocation, useNavigate} from "react-router-dom";
-import {ILoginData, IRegisterData} from "../types/FormTypes";
+import {LoginData, RegisterData} from "../types/FormTypes";
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
 export const AuthContextProvider = ({children}: IAuthContextProvider) => {
 
-    const [user, setUser] = useState<IUser | null>(null)
+    const [user, setUser] = useState<User | null>(null)
     const navigate = useNavigate();
 
     const currentPage = useLocation().pathname
@@ -31,7 +31,7 @@ export const AuthContextProvider = ({children}: IAuthContextProvider) => {
 
     const isAuthenticated = user !== null
 
-    const handleLogin = async (loginData: ILoginData) => {
+    const handleLogin = async (loginData: LoginData) => {
         try {
             const {data} = await fetchUsers(loginData);
 
@@ -47,7 +47,7 @@ export const AuthContextProvider = ({children}: IAuthContextProvider) => {
         }
     }
 
-    const handleRegister = async (registerData: IRegisterData) => {
+    const handleRegister = async (registerData: RegisterData) => {
         try {
             const {data} = await fetchUsers(registerData);
             const hasUsersWithSameEmail = data.length > 0;

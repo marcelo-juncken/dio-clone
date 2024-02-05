@@ -1,12 +1,12 @@
 import React from "react";
-import {IUser} from "./User";
-import {ILoginData, IRegisterData} from "./FormTypes";
+import {User} from "./User";
+import {LoginData, RegisterData} from "./FormTypes";
 
 export interface IAuthContext {
-    user: IUser | null
+    user: User | null
     isAuthenticated: boolean
-    handleLogin: (loginData: ILoginData) => Promise<void>
-    handleRegister: (loginData: IRegisterData) => Promise<void>
+    handleLogin: (loginData: LoginData) => Promise<void>
+    handleRegister: (loginData: RegisterData) => Promise<void>
     handleLogout: () => void
 }
 

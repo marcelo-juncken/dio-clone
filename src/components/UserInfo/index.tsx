@@ -1,9 +1,9 @@
 
 import { Container, NameText, Progress} from './styles';
 import {Avatar} from "../Avatar";
-import {UserInfoProps} from "../../types/components/UserInfo";
+import {IUserInfo} from "./types";
 
-const UserInfo = ({name, percentual} : UserInfoProps) => {
+const UserInfo = ({name, percentual} : IUserInfo) => {
     return (
         <Container>
             <Avatar/>

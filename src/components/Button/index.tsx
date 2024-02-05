@@ -1,9 +1,9 @@
 import React from 'react'
 
 import {ButtonContainer} from './styles';
-import {ButtonProps} from "../../types/components/Button";
+import {IButton} from "./types";
 
-const Button = ({title, $variant = "PRIMARY", ...rest}: ButtonProps) => {
+const Button = ({title, $variant = "PRIMARY", ...rest}: IButton) => {
     return (
         <ButtonContainer $variant={$variant} {...rest}>{title}</ButtonContainer>
     )
