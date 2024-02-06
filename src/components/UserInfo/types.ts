@@ -1,4 +1,4 @@
 export interface IUserInfo {
     name: string;
-    percentual: number;
+    $percentual: number;
 }

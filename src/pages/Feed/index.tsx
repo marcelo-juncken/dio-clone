@@ -15,17 +15,17 @@ const Feed = () => {
         const usersNumber = 5
         return Array.from({length: usersNumber}, (_, index) => {
             const randomPercentual = Math.floor(Math.random() * 100);
-            return <UserInfo key={`userInfo${index}`} name="Marcelo Juncken" percentual={randomPercentual}/>;
+            return <UserInfo key={`userInfo${index}`} name="Marcelo Juncken" $percentual={randomPercentual}/>;
         });
     }, []);
 
     return (
         <Container>
-            <Column flex={3}>
+            <Column $flex={3}>
                 <Title>Feed</Title>
                 {mockedCards}
             </Column>
-            <Column flex={1}>
+            <Column $flex={1}>
                 <TitleHighlight> # RANKING 5 TOP DA SEMANA </TitleHighlight>
                 {mockedUsers}
             </Column>

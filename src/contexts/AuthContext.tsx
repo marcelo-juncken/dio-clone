@@ -16,8 +16,6 @@ export const AuthContextProvider = ({children}: IAuthContextProvider) => {
     const currentPage = useLocation().pathname
 
     useEffect(() => {
-        console.log(currentPage);
-        console.log(user);
 
         const onlyLoggedInUsersPages = [ROUTES.FEED]
 
@@ -47,7 +45,7 @@ export const AuthContextProvider = ({children}: IAuthContextProvider) => {
         }
     }
 
-    const handleRegister = async (registerData: RegisterData) => {
+    const handleRegister = async (registerData: RegisterData)  => {
         try {
             const {data} = await fetchUsers(registerData);
             const hasUsersWithSameEmail = data.length > 0;
@@ -57,10 +55,10 @@ export const AuthContextProvider = ({children}: IAuthContextProvider) => {
                 return;
             }
 
-            await createUser(registerData);
+            const userData  = await createUser(registerData);
+            const user = userData.data;
 
-            setUser(data[0])
-            navigate(ROUTES.FEED);
+            setUser(user)
         } catch (e: any) {
             console.error("Erro ao criar usuário: ", e);
             alert("Error: " + e.message);

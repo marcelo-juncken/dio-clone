@@ -58,7 +58,7 @@ export const SubTitleRegister = styled.p`
 
 export const PrivacyDeclaration = styled.p`
     font-family: Open Sans,serif;
-    font-size: 18px;
+    font-size: 10px;
     font-weight: 400;
     line-height: 25px;
     letter-spacing: 0;

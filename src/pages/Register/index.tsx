@@ -37,7 +37,12 @@ const Register = () => {
     const [inputType, setInputType] = useState("password");
 
     const {control, handleSubmit, formState: {errors}} = useForm<RegisterData>({
-        resolver: yupResolver(schema)
+        resolver: yupResolver(schema),
+        defaultValues: {
+            name: '',
+            email: '',
+            password: ''
+        },
     });
 
     const onSubmit = async (formData: RegisterData) => {

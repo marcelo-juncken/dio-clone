@@ -15,7 +15,7 @@ export const NameText = styled.div`
     color: #FFFFFF;
 `
 
-export const Progress = styled.div<{percentual : number}>`
+export const Progress = styled.div<{$percentual : number}>`
     width: 180px;
     height: 6px;
     background-color: #FFFFFF;
@@ -27,7 +27,7 @@ export const Progress = styled.div<{percentual : number}>`
         position: absolute;
         top: 0;
         left: 0;
-        width: ${({percentual}) => percentual}%;
+        width: ${({$percentual}) => $percentual}%;
         height: 6px;
         border-radius: 3px;
         background-color: #23DD7A;

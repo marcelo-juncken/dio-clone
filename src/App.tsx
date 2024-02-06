@@ -5,7 +5,7 @@ import GlobalStyle from './styles/global';
 import theme from './styles/theme';
 import { AuthContextProvider } from './contexts/AuthContext';
 import { Header } from './components/Header';
-import Spinner  from './components/Spinner'; // Ensure you have a Spinner for loading indication
+import Spinner  from './components/Spinner';
 
 const Home = lazy(() => import('./pages/Home'));
 const Feed = lazy(() => import('./pages/Feed'));

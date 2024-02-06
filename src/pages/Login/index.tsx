@@ -37,6 +37,10 @@ const Login = () => {
 
     const {control, handleSubmit, formState: {errors}} = useForm<LoginData>({
         resolver: yupResolver(schema),
+        defaultValues: {
+            email: '',
+            password: '',
+        },
     });
 
     const [inputType, setInputType] = useState("password");
