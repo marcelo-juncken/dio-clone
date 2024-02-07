@@ -71,7 +71,7 @@ export const Menu = styled.a`
     margin-right: 12px;
 `
 
-export const MenuRight = styled.a`
+export const MenuRight = styled.div`
     font-family: 'Open Sans',serif;
     font-style: normal;
     font-size: 12px;
@@ -79,7 +79,7 @@ export const MenuRight = styled.a`
     color: #FFFFFF;
     margin-right: 12px;
     text-decoration: none;
-
+    cursor: pointer;
 
     &:hover{
         text-decoration:  underline;

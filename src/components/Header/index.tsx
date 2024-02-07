@@ -10,11 +10,11 @@ import {useAuth} from "../../hooks/useAuth";
 
 export const Header = () => {
 
-    const {user, handleLogout} = useAuth();
+    const {isAuthenticated, user, signOut} = useAuth();
     const navigate = useNavigate();
 
     const handleLogoClick = () => {
-        if (user) {
+        if (isAuthenticated) {
             navigate(ROUTES.FEED)
         } else {
             navigate(ROUTES.HOME)
@@ -26,27 +26,27 @@ export const Header = () => {
             <Container>
                 <Row>
                     <img onClick={handleLogoClick} src={logo} alt="Logo da dio"/>
-                    {user ?
+                    {isAuthenticated &&
                         (<>
                             <SearchInputContainer>
                                 <input placeholder='Buscar...'/>
                             </SearchInputContainer>
                             <Menu>Live Code</Menu>
                             <Menu>Global</Menu>
-                        </>) : null
+                        </>)
                     }
                 </Row>
                 <Row>
-                    {user ? (
+                    {isAuthenticated && !!user ? (
                         <>
                             <UserName>{user.name}</UserName>
                             <Avatar/>
-                            <Logout onClick={handleLogout}>Sair</Logout>
+                            <Logout onClick={signOut}>Sair</Logout>
                         </>
 
                     ) : (
                         <>
-                            <MenuRight href="/">Home</MenuRight>
+                            <MenuRight onClick={() => navigate(ROUTES.HOME)}>Home</MenuRight>
                             <Button onClick={() => navigate(ROUTES.LOGIN)} title="Entrar"/>
                             <Button onClick={() => navigate(ROUTES.REGISTER)} title="Cadastrar"/>
                         </>

@@ -31,7 +31,7 @@ const schema = yup.object({
 const Register = () => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const {handleRegister} = useAuth();
+    const {signUp} = useAuth();
     const navigate = useNavigate();
 
     const {control, handleSubmit, formState: {errors}} = useForm<RegisterData>({
@@ -45,7 +45,7 @@ const Register = () => {
 
     const onSubmit = async (formData: RegisterData) => {
         setIsLoading(true);
-        await handleRegister(formData);
+        await signUp(formData);
         setIsLoading(false);
     };
 

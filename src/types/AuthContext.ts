@@ -5,9 +5,9 @@ import {LoginData, RegisterData} from "./FormTypes";
 export interface IAuthContext {
     user: User | null
     isAuthenticated: boolean
-    handleLogin: (loginData: LoginData) => Promise<void>
-    handleRegister: (loginData: RegisterData) => Promise<void>
-    handleLogout: () => void
+    signIn: (loginData: LoginData) => Promise<void>
+    signUp: (loginData: RegisterData) => Promise<void>
+    signOut: () => void
 }
 
 export interface IAuthContextProvider {

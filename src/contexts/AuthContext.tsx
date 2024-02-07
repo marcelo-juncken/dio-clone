@@ -1,10 +1,11 @@
 import React, {createContext, useEffect, useState} from 'react';
 import {IAuthContext, IAuthContextProvider} from "../types/AuthContext";
 import {User} from "../types/User";
-import {createUser, fetchUsers} from "../services/api";
+import {createUser, fetchEmail, fetchUsers} from "../services/api";
 import {ROUTES} from "../routes";
 import {useLocation, useNavigate} from "react-router-dom";
 import {LoginData, RegisterData} from "../types/FormTypes";
+import {clearSession, getSession, saveSession} from "../services/sessionStorage";
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
@@ -15,26 +16,35 @@ export const AuthContextProvider = ({children}: IAuthContextProvider) => {
 
     const currentPage = useLocation().pathname
 
+    const isAuthenticated = !!user
+
+    useEffect(() => {
+        const storedUser = getSession();
+        if (storedUser) {
+            setUser(storedUser);
+        }
+    }, [])
+
     useEffect(() => {
 
-        const onlyLoggedInUsersPages = [ROUTES.FEED]
+        const shouldNavigateToFeed = isAuthenticated && currentPage !== ROUTES.FEED;
+        const shouldNavigateToLogin = !isAuthenticated && currentPage === ROUTES.FEED;
 
-        if (onlyLoggedInUsersPages.includes(currentPage) && user === null) {
+        if (shouldNavigateToLogin) {
             navigate(ROUTES.LOGIN);
-        } else if (!onlyLoggedInUsersPages.includes(currentPage) && user !== null) {
+        } else if (shouldNavigateToFeed) {
             navigate(ROUTES.FEED)
         }
 
-    }, [currentPage, user, navigate])
+    }, [currentPage, isAuthenticated, navigate])
 
-    const isAuthenticated = user !== null
 
-    const handleLogin = async (loginData: LoginData) => {
+    const signIn = async (loginData: LoginData) => {
         try {
             const {data} = await fetchUsers(loginData);
 
             if (data.length) {
-                setUser(data[0])
+                saveUserSession(data[0]);
                 navigate(ROUTES.FEED);
             } else {
                 alert('Usuário ou senha inválido')
@@ -45,32 +55,38 @@ export const AuthContextProvider = ({children}: IAuthContextProvider) => {
         }
     }
 
-    const handleRegister = async (registerData: RegisterData)  => {
-        try {
-            const {data} = await fetchUsers(registerData);
-            const hasUsersWithSameEmail = data.length > 0;
+    const saveUserSession = (user: User) => {
+        const {id, name, email} = user;
+        const sessionData = {id, name, email};
+        setUser(sessionData);
+        saveSession(sessionData)
+    }
 
-            if (hasUsersWithSameEmail) {
+    const signUp = async (registerData: RegisterData) => {
+        try {
+            const {data} = await fetchEmail(registerData.email);
+            const emailAlreadyExists = data.length;
+
+            if (emailAlreadyExists) {
                 alert('E-mail já cadastrado!');
                 return;
             }
 
-            const userData  = await createUser(registerData);
-            const user = userData.data;
+            const userData = await createUser(registerData);
 
-            setUser(user)
+            saveUserSession(userData.data);
         } catch (e: any) {
-            console.error("Erro ao criar usuário: ", e);
             alert("Error: " + e.message);
         }
     }
-    const handleLogout = () => {
+    const signOut = () => {
         setUser(null);
+        clearSession();
         navigate(ROUTES.HOME);
     }
 
     return (
-        <AuthContext.Provider value={{user, isAuthenticated, handleLogin, handleLogout, handleRegister}}>
+        <AuthContext.Provider value={{user, isAuthenticated, signIn, signOut, signUp}}>
             {children}
         </AuthContext.Provider>
     );
