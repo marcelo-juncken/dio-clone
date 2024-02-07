@@ -5,25 +5,19 @@ import {IInput} from "./types";
 import {useController} from 'react-hook-form';
 
 
-export const Input = ({name, control, leftIcon, rightIcon, errorMessage, onRightIconClick, ...rest}: IInput) => {
+export const Input = ({name, control, leftIcon, rightIcon, errorMessage, type = "text", onRightIconClick, ...rest}: IInput) => {
 
     const {field} = useController({name, control});
 
-    const {type} = rest;
-
     const [inputType, setInputType] = useState(type);
 
-    const togglePasswordVisibility = useCallback(() => {
-        setInputType(prevType => prevType === 'password' ? 'text' : 'password');
-    }, []);
-
-    const handleRightIconClick = () => {
-        if (name === 'password') {
-            togglePasswordVisibility()
+    const handleRightIconClick = useCallback(() => {
+        if (type === 'password') {
+            setInputType(currentType => currentType === 'password' ? 'text' : 'password');
         } else if (onRightIconClick) {
             onRightIconClick();
         }
-    }
+    },[onRightIconClick, type]);
 
     return (
         <>
