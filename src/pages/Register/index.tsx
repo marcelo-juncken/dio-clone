@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {
     AlreadyHaveAccountText,
     Column,
@@ -34,8 +34,6 @@ const Register = () => {
     const {handleRegister} = useAuth();
     const navigate = useNavigate();
 
-    const [inputType, setInputType] = useState("password");
-
     const {control, handleSubmit, formState: {errors}} = useForm<RegisterData>({
         resolver: yupResolver(schema),
         defaultValues: {
@@ -51,10 +49,6 @@ const Register = () => {
         setIsLoading(false);
     };
 
-    const togglePasswordVisibility = useCallback(() => {
-        setInputType(prevType => prevType === 'password' ? 'text' : 'password');
-    }, []);
-
     return (
         <Container>
             <Column>
@@ -67,13 +61,13 @@ const Register = () => {
                     <SubTitleRegister>Crie sua conta e make the change._</SubTitleRegister>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Input control={control} errorMessage={errors.name?.message} name={"name"} placeholder={"Nome"}
-                               leftIcon={<MdPerson/>}></Input>
+                               leftIcon={<MdPerson/>}/>
                         <Input control={control} errorMessage={errors.email?.message} name={"email"}
                                placeholder={"E-mail"}
-                               leftIcon={<MdEmail/>}></Input>
+                               leftIcon={<MdEmail/>}/>
                         <Input control={control} errorMessage={errors.password?.message} name={"password"}
-                               placeholder={"Senha"} leftIcon={<MdLock/>} type={inputType} rightIcon={<MdRemoveRedEye/>}
-                               onRightIconClick={togglePasswordVisibility}></Input>
+                               placeholder={"Senha"} leftIcon={<MdLock/>} rightIcon={<MdRemoveRedEye/>}
+                               type={"password"}/>
                         <Button disabled={isLoading} title={"Criar minha conta"} $variant={"SECONDARY"}
                                 type={"submit"}/>
                     </form>

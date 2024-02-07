@@ -15,7 +15,7 @@ import {
     TitleLogin,
     Wrapper
 } from './styles';
-import React, {useCallback, useState} from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from 'yup';
@@ -43,17 +43,12 @@ const Login = () => {
         },
     });
 
-    const [inputType, setInputType] = useState("password");
-
     const onSubmit = async (formData: LoginData) => {
         setIsLoading(true);
         await handleLogin(formData)
         setIsLoading(false);
     }
 
-    const togglePasswordVisibility = useCallback(() => {
-        setInputType(prevType => prevType === 'password' ? 'text' : 'password');
-    }, []);
 
     return (
         <Container>
@@ -69,9 +64,10 @@ const Login = () => {
                         <Input control={control} errorMessage={errors.email?.message} name="email" placeholder="E-mail"
                                leftIcon={<MdEmail/>}/>
                         <Input control={control} errorMessage={errors.password?.message} name="password"
-                               placeholder="Senha" type={inputType}
+                               placeholder="Senha"
                                leftIcon={<MdLock/>}
-                               rightIcon={<MdRemoveRedEye/>} onRightIconClick={togglePasswordVisibility}/>
+                               rightIcon={<MdRemoveRedEye/>}
+                               type={"password"}/>
                         <Button disabled={isLoading} title="Entrar" $variant="SECONDARY" type="submit"/>
                     </form>
                     {isLoading && <Spinner/>}
