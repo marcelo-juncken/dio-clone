@@ -33,7 +33,7 @@ const Login = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const {handleLogin} = useAuth();
+    const {signIn} = useAuth();
 
     const {control, handleSubmit, formState: {errors}} = useForm<LoginData>({
         resolver: yupResolver(schema),
@@ -45,7 +45,7 @@ const Login = () => {
 
     const onSubmit = async (formData: LoginData) => {
         setIsLoading(true);
-        await handleLogin(formData)
+        await signIn(formData)
         setIsLoading(false);
     }
 
