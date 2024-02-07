@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback, useState} from 'react'
 
 import {ErrorText, InputContainer, InputText, LeftIconContainer, RightIconContainer} from './styles';
 import {IInput} from "./types";
@@ -9,13 +9,29 @@ export const Input = ({name, control, leftIcon, rightIcon, errorMessage, onRight
 
     const {field} = useController({name, control});
 
+    const {type} = rest;
+
+    const [inputType, setInputType] = useState(type);
+
+    const togglePasswordVisibility = useCallback(() => {
+        setInputType(prevType => prevType === 'password' ? 'text' : 'password');
+    }, []);
+
+    const handleRightIconClick = () => {
+        if (name === 'password') {
+            togglePasswordVisibility()
+        } else if (onRightIconClick) {
+            onRightIconClick();
+        }
+    }
+
     return (
         <>
             <InputContainer>
                 {leftIcon && (<LeftIconContainer>{leftIcon}</LeftIconContainer>)}
-                <InputText {...field} {...rest} />
+                <InputText {...field} {...rest} type={inputType}/>
                 {rightIcon && (
-                    <RightIconContainer onClick={onRightIconClick}
+                    <RightIconContainer onClick={handleRightIconClick}
                                         aria-label="Toggle password visibility">
                         {rightIcon}
                     </RightIconContainer>
